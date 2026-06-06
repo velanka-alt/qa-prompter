@@ -69,7 +69,9 @@
   .empty-icon { font-size: 40px; opacity: .3; }
   .preview-cat { font-size: 11px; color: var(--green); background: var(--green-bg); border: 1px solid rgba(62,207,142,0.2); padding: 3px 10px; border-radius: 10px; display: inline-block; margin-bottom: 14px; font-weight: 500; }
   .preview-q { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
-  .preview-a { font-size: 14px; font-weight: 700; color: var(--text2); line-height: 1.9; white-space: pre-wrap; }
+  .preview-a { font-size: 14px; font-weight: 700; color: var(--text2); line-height: 1.9; }
+  .preview-a .a-line { display: block; margin-bottom: 6px; }
+  .preview-a .a-line:last-child { margin-bottom: 0; }
 
   /* ── 코멘트 영역 ── */
   .comment-area {
@@ -160,7 +162,10 @@
   .presenter-badge { display: none; position: fixed; top: 70px; right: 24px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; z-index: 150; }
   .p-cat { font-size: 12px; color: var(--green); background: var(--green-bg); border: 1px solid rgba(62,207,142,0.2); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; font-weight: 500; }
   .p-q { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border2); letter-spacing: -0.3px; }
-  .p-a { font-size: 17px; font-weight: 700; color: var(--text2); line-height: 2; white-space: pre-wrap; }
+  .p-a { font-size: 17px; font-weight: 700; color: var(--text2); line-height: 2; }
+  .p-a .a-line { display: block; margin-bottom: 8px; }
+  .p-a .a-line:last-child { margin-bottom: 0; }
+  .p-a .a-blank { display: block; height: 10px; }
   .p-hint { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text3); }
 
   /* ── 답변자 코멘트 박스 ── */
@@ -326,6 +331,14 @@ let qaData = [
   {id:32, cat:"인성·태도", q:"Q32. What would you do if your English is not good enough? (영어부족을 어떻게 극복)", a:"I will not be afraid.(어프레이드)\nI will try my best to communicate.(커뮤니케이션)\nI think learning by doing is important.\nI will learn from my friends and teachers."},
 ];
 
+function formatAnswer(text) {
+  return text.split('\n').map(line =>
+    line.trim() === ''
+      ? '<span class="a-blank"></span>'
+      : `<span class="a-line">${line}</span>`
+  ).join('');
+}
+
 let selectedId = null;
 let currentCat = '전체';
 let lastTs = null;
@@ -382,8 +395,10 @@ function selectCard(id) {
   document.getElementById('selected-preview').innerHTML = `
     <div class="preview-cat">${card.cat}</div>
     <div class="preview-q">${card.q}</div>
-    <div class="preview-a">${card.a}</div>`;
+    <div class="preview-a">${formatAnswer(card.a)}</div>`;
   document.getElementById('send-btn').disabled = false;
+  // 새 카드 선택 시 코멘트 초기화
+  document.getElementById('comment-input').value = '';
 }
 
 function clearComment() {
@@ -455,7 +470,7 @@ function showPresenterCard(d) {
   document.getElementById('p-card').style.display = 'block';
   document.getElementById('p-cat').textContent = d.cat;
   document.getElementById('p-q').textContent = d.q;
-  document.getElementById('p-a').textContent = d.a;
+  document.getElementById('p-a').innerHTML = formatAnswer(d.a);
   // 코멘트 처리
   const commentWrap = document.getElementById('p-comment-wrap');
   const commentText = document.getElementById('p-comment-text');
