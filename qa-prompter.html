@@ -332,11 +332,24 @@ let qaData = [
 ];
 
 function formatAnswer(text) {
-  return text.split('\n').map(line =>
-    line.trim() === ''
-      ? '<span class="a-blank"></span>'
-      : `<span class="a-line">${line}</span>`
-  ).join('');
+  // 단락(\n\n)은 빈 줄로 구분, 단락 내에서는 마침표 기준으로 문장 분리
+  return text.split('\n\n').map(para => {
+    if (para.trim() === '') return '<span class="a-blank"></span>';
+    // 괄호 안 마침표(발음 힌트) 보호: (xxx) 패턴은 분리하지 않음
+    // 마침표 + 공백 + 대문자 or 마침표 + 공백 + 한글 로 문장 분리
+    const sentences = para
+      .replace(/\(([^)]*)\)/g, (m) => m.replace(/\./g, '§'))  // 괄호 안 마침표 임시 치환
+      .split(/\.\s+(?=[A-Z가-힣I])/)
+      .map(s => s.replace(/§/g, '.').trim())
+      .filter(s => s.length > 0)
+      .map(s => s.endsWith('.') ? s : s + '.')
+      // 마지막 문장 마침표 중복 방지
+      .map((s, i, arr) => {
+        if (i === arr.length - 1 && para.trim().slice(-1) !== '.') return s.slice(0, -1);
+        return s;
+      });
+    return sentences.map(s => `<span class="a-line">${s}</span>`).join('');
+  }).join('<span class="a-blank"></span>');
 }
 
 let selectedId = null;
