@@ -23,6 +23,7 @@
     --green-bg: rgba(62,207,142,0.1);
     --red: #f87171;
     --amber: #fbbf24;
+    --amber-bg: rgba(251,191,36,0.1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
@@ -55,12 +56,11 @@
   .qa-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; cursor: pointer; transition: all .15s; }
   .qa-card:hover { border-color: var(--border2); background: #22222e; }
   .qa-card.selected { border-color: var(--accent); background: var(--accent-bg); }
-  .card-num { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
   .card-cat { font-size: 10px; color: var(--green); background: var(--green-bg); padding: 2px 7px; border-radius: 10px; display: inline-block; margin-bottom: 5px; font-weight: 500; }
   .card-q { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.5; margin-bottom: 3px; }
   .card-a-prev { font-size: 11px; color: var(--text3); line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .op-main { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-  .op-main-head { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .op-main-head { padding: 16px 24px; border-bottom: 1px solid var(--border); }
   .op-main-head h2 { font-size: 14px; font-weight: 500; color: var(--text2); }
   .selected-preview { flex: 1; overflow-y: auto; padding: 24px; }
   .selected-preview::-webkit-scrollbar { width: 4px; }
@@ -68,9 +68,65 @@
   .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 12px; color: var(--text3); }
   .empty-icon { font-size: 40px; opacity: .3; }
   .preview-cat { font-size: 11px; color: var(--green); background: var(--green-bg); border: 1px solid rgba(62,207,142,0.2); padding: 3px 10px; border-radius: 10px; display: inline-block; margin-bottom: 14px; font-weight: 500; }
-  .preview-q { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
-  .preview-a { font-size: 14px; color: var(--text2); line-height: 1.9; white-space: pre-wrap; }
-  .op-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; }
+  .preview-q { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
+  .preview-a { font-size: 14px; font-weight: 700; color: var(--text2); line-height: 1.9; white-space: pre-wrap; }
+
+  /* ── 코멘트 영역 ── */
+  .comment-area {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .comment-label {
+    font-size: 11px;
+    color: var(--amber);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .comment-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .comment-input {
+    flex: 1;
+    padding: 9px 12px;
+    background: var(--bg);
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    resize: none;
+    min-height: 40px;
+    max-height: 100px;
+    line-height: 1.5;
+    transition: border-color .15s;
+  }
+  .comment-input:focus { border-color: var(--amber); }
+  .comment-input::placeholder { color: var(--text3); }
+  .comment-clear-btn {
+    padding: 9px 12px;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text3);
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .comment-clear-btn:hover { color: var(--red); border-color: var(--red); }
+
+  /* ── 하단 버튼 영역 ── */
+  .op-footer { padding: 14px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; }
   .send-btn { padding: 9px 22px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s; }
   .send-btn:hover { background: #6a5ef0; }
   .send-btn:disabled { opacity: .35; cursor: not-allowed; }
@@ -79,6 +135,8 @@
   .send-status { margin-left: auto; font-size: 12px; color: var(--text3); }
   .add-btn { padding: 9px 16px; border: 1px dashed var(--border2); border-radius: 8px; background: transparent; color: var(--text3); font-size: 13px; font-family: inherit; cursor: pointer; transition: all .15s; }
   .add-btn:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* ── Modal ── */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
   .modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 24px; width: 480px; max-width: 90vw; }
@@ -91,19 +149,49 @@
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
   .btn-save { padding: 8px 20px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; }
   .btn-cancel { padding: 8px 16px; border: 1px solid var(--border2); border-radius: 8px; background: transparent; color: var(--text2); font-size: 13px; font-family: inherit; cursor: pointer; }
+
+  /* ── Presenter ── */
   .presenter-panel { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 53px); padding: 48px 24px; background: var(--bg); position: relative; }
   .presenter-panel.active { display: flex; }
   .presenter-empty { display: flex; flex-direction: column; align-items: center; gap: 14px; color: var(--text3); }
   .presenter-empty .big-icon { font-size: 56px; opacity: .2; }
-  .presenter-empty p { font-size: 15px; }
   .presenter-card-wrap { display: none; width: 100%; max-width: 760px; animation: fadeup .35s ease; }
   @keyframes fadeup { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-  .presenter-badge { display: none; position: fixed; top: 70px; right: 24px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; animation: popbadge .3s ease; z-index: 150; }
-  @keyframes popbadge { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
-  .p-cat { font-size: 12px; color: var(--green); background: var(--green-bg); border: 1px solid rgba(62,207,142,0.2); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; font-weight: 500; letter-spacing: .3px; }
-  .p-q { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border2); letter-spacing: -0.5px; }
-  .p-a { font-size: 17px; color: var(--text2); line-height: 2; white-space: pre-wrap; }
-  .p-hint { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
+  .presenter-badge { display: none; position: fixed; top: 70px; right: 24px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; z-index: 150; }
+  .p-cat { font-size: 12px; color: var(--green); background: var(--green-bg); border: 1px solid rgba(62,207,142,0.2); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+  .p-q { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border2); letter-spacing: -0.3px; }
+  .p-a { font-size: 17px; font-weight: 700; color: var(--text2); line-height: 2; white-space: pre-wrap; }
+  .p-hint { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text3); }
+
+  /* ── 답변자 코멘트 박스 ── */
+  .p-comment-wrap {
+    display: none;
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--amber-bg);
+    border: 1px solid rgba(251,191,36,0.25);
+    border-radius: 12px;
+    animation: fadeup .3s ease;
+  }
+  .p-comment-wrap.visible { display: block; }
+  .p-comment-label {
+    font-size: 11px;
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: .3px;
+  }
+  .p-comment-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--amber);
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
   .no-result { text-align: center; padding: 32px; color: var(--text3); font-size: 13px; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -145,6 +233,16 @@
           <div style="font-size:12px;color:var(--text3)">선택 후 답변자 화면에 전송할 수 있습니다</div>
         </div>
       </div>
+
+      <!-- 코멘트 입력 영역 -->
+      <div class="comment-area">
+        <div class="comment-label">💬 운영자 코멘트 <span style="color:var(--text3);font-weight:400">(답변자 화면에 함께 표시됩니다)</span></div>
+        <div class="comment-input-row">
+          <textarea class="comment-input" id="comment-input" placeholder="예: 시간이 부족하니 간결하게 / 이 부분 강조해주세요 / 다음 질문으로 넘어가세요..." rows="2"></textarea>
+          <button class="comment-clear-btn" onclick="clearComment()">지우기</button>
+        </div>
+      </div>
+
       <div class="op-footer">
         <button class="send-btn" id="send-btn" disabled onclick="sendCard()">▶ 답변자 화면에 전송</button>
         <button class="clear-btn" onclick="clearCard()">화면 지우기</button>
@@ -166,6 +264,11 @@
     <div class="p-cat" id="p-cat"></div>
     <div class="p-q" id="p-q"></div>
     <div class="p-a" id="p-a"></div>
+    <!-- 코멘트 박스 -->
+    <div class="p-comment-wrap" id="p-comment-wrap">
+      <div class="p-comment-label">💬 운영자 코멘트</div>
+      <div class="p-comment-text" id="p-comment-text"></div>
+    </div>
     <div class="p-hint">📌 위 내용을 참고해 자연스럽게 답변하세요</div>
   </div>
 </div>
@@ -189,38 +292,38 @@ const FIREBASE_URL = 'https://qna-prompter-default-rtdb.firebaseio.com';
 const QA_PATH = '/qa_current.json';
 
 let qaData = [
-  {id:1, cat:"자기소개", q:"Q1. Tell us about yourself. (자기소개)", a:"Hello. My name is Shinu Kim. I am a first-year student at Halla Middle School in Jeju.\nI like science, especially dinosaurs, space, and weather.\nI also made a Jeju language app.\nI enjoy learning new things and working with other people."},
-  {id:2, cat:"지원동기", q:"Q2. Why do you want to join APT JSO-11? (이번 프로그램 지원동기)", a:"I want to join because the topic is climate.\nI am interested in climate change and the environment.\nI want to do science experiments and learn with students from other countries.\nAlso, this is my first international science program, so I want to challenge myself."},
+  {id:1, cat:"자기소개", q:"Q1. Tell us about yourself. (자기소개)", a:"Hello. My name is Shinu Kim. I am a first-year student at Halla Middle School in Jeju.\nI like science, especially(이스페셜리) dinosaurs, space, and weather.\nI also made a Jeju language app.\nI enjoy learning new things and working with other people."},
+  {id:2, cat:"지원동기", q:"Q2. Why do you want to join APT JSO-11? (이번 프로그램 지원동기)", a:"I want to join because the topic is climate.\nI am interested in climate change and the environment.\nI want to do science experiments and learn with students from other countries.\nAlso, this is my first international(인터네셔널) science program, so I want to challenge myself."},
   {id:3, cat:"관심분야", q:"Q3. Why are you interested in climate change? (왜 기후변화에 관심을 가지게 되었나)", a:"I live in Jeju Island.\nWe often have typhoons and heavy rain. Sometimes the weather changes very quickly. I wanted to know why this happens. Then I learned about climate change.\nI think Science can help. That is why I became interested in this topic."},
-  {id:4, cat:"프로젝트", q:"Q4. Explain your Jeju language app project. (앱 설명)", a:"My project is a translation app. It changes Jeju language into Korean and Korean into Jeju language. I started this project because fewer people use Jeju language now. I wanted to help protect our local culture. In the future, I want to add AI and voice recognition."},
-  {id:5, cat:"프로젝트", q:"Q5. What did you learn from the project? (앱개발하며 배우게 된 것)", a:"In this project, I learned two things.\nFirst, technology can help protect culture and language.\nSecond, teamwork is very important. I could not do everything alone.\nMy teammates helped me, and I helped my teammates to solve problems."},
-  {id:6, cat:"관심분야", q:"Q6. How can AI help society? (AI가 세상을 어떻게 도울까?)", a:"AI can help people do things faster and easier. For example, it can help doctors and students. AI can also help people make better decisions. I think AI can help solve environmental problems in the future."},
-  {id:7, cat:"팀워크·기여", q:"Q7. How would you contribute to the Korean team? (우리 팀에 어떻게 기여할 건지)", a:"I am responsible and I always do my best. I like listening to other people's ideas.\nI enjoy teamwork and cooperation. I will actively join experiments and discussions.\nI will also bring positive energy to the team."},
+  {id:4, cat:"프로젝트", q:"Q4. Explain your Jeju language app project. (앱 설명)", a:"My project is a translation app. It changes Jeju language into Korean and Korean into Jeju language. I started this project because fewer(피월) people use Jeju language now. I wanted to help protect our local culture. In the future, I want to add AI and voice recognition.(뤼코그니션)"},
+  {id:5, cat:"프로젝트", q:"Q5. What did you learn from the project? (앱개발하며 배우게 된거)", a:"In this project, I learned two things.\nFirst, technology can help protect culture and language.\nSecond, teamwork is very important. I could not do everything alone.\nMy teammates helped me, and I helped my teammates to solve problems."},
+  {id:6, cat:"관심분야", q:"Q6. How can AI help society? (AI가 세상을 어떻게 도울까?)", a:"AI can help people do things faster and easier. For example(익셈플), it can help doctors and students. AI can also help people make better decisions(디씨션). I think AI can help solve environmental problems in the future."},
+  {id:7, cat:"팀워크·기여", q:"Q7. How would you contribute to the Korean team? (우리팀에 어떻게 기여할건지)", a:"I am responsible(뤼스펀시블) and I always do my best. I like listening to other people's ideas.\nI enjoy teamwork and cooperation(쿠오퍼레이션). I will actively join experiments and discussions(디스커션).\nI will also bring positive energy to the team."},
   {id:8, cat:"한국·제주", q:"Q8. How would you introduce Korea? (한국을 소개)", a:"I want to introduce Korea as a country with both tradition and technology together.\nI especially want to talk about Hangul. King Sejong created Hangul so people could learn it easily. I think language and culture are very important.\nKorean students also enjoy learning and working together."},
-  {id:9, cat:"인성·태도", q:"Q9. What would you do if your experiment failed? (실험에서 실패하면 어떻게)", a:"I would not give up.\nFirst, I would check the experiment again.\nThen I would find the problem and try again.\nI think failure is also part of learning.\nI would work with my teammates to find a better way."},
-  {id:10, cat:"인성·태도", q:"Q10. What was the most difficult part of making the Jeju language app, and how did you overcome it?", a:"The hardest part was making the translation system. It was difficult to connect Jeju words and Korean words. I talked with my teammates and fixed the code together.\nAfter many tries, it worked better.\n\nOne of the hardest things in my life was having allergies. It was difficult because there were foods I could not eat. But I did not give up.\nI controlled my diet and tried to stay healthy. Slowly, I got better.\nI learned that it is important to stay positive and keep trying.\nNow I always try my best when I meet a difficult problem."},
-  {id:11, cat:"관심분야", q:"Q11. What is one small habit you practice in your daily life to protect the environment? (환경보호를 위한 나의 노력)", a:"I try not to waste food. I also try to reduce meat goods when possible.\nI think small actions can help the environment.\nI want to make good habits for the future."},
-  {id:12, cat:"팀워크·기여", q:"Q12. In a team project, what would you do if a teammate has a different opinion from yours? (팀과 생각이 달랐을 때)", a:"First, I would listen carefully. I respect different ideas.\nThen I would look for a common idea. I think good teamwork comes from communication."},
-  {id:13, cat:"한국·제주", q:"Q13. If a student from another country has a prejudice about Korea, how will you respond? (한국문화에 대한 편견이 있을 때)", a:"I would explain kindly.\nI would tell them about Korean culture and daily life.\nI think talking and sharing information can remove misunderstandings."},
-  {id:14, cat:"지원동기", q:"Q14. If you are accepted, what is the first thing you want to prepare? (대표 선발되면 무엇을 준비할 건가)", a:"First, I would study English.\nI want to communicate better with other students.\nSecond, I would learn more about climate change.\nI want to be ready for the program."},
+  {id:9, cat:"인성·태도", q:"Q9. What would you do if your experiment failed? (실험에서 실패하면 어떻게)", a:"I would not give up.\nFirst, I would check the experiment again.\nThen I would find the problem and try again.\nI think failure(뻬일리얼) is also part of learning.\nI would work with my teammates to find a better way."},
+  {id:10, cat:"인성·태도", q:"Q10. What was the most difficult part of making the Jeju language app, and how did you overcome it?", a:"(앱개발할 때 극복) The hardest part was making the translation system(시스템). It was difficult to connect(커넥트) Jeju words and Korean words. I talked with my teammates and fixed the code together.\nAfter many tries, it worked better.\n\n(살면서 가장 어려웠던) One of the hardest things in my life was having allergies. It was difficult because there were foods I could not eat. But I did not give up.\nI controlled my diet(다이어트) and tried to stay healthy. Slowly, I got better.\nI learned that it is important to stay positive and keep trying.\nNow I always try my best when I meet a difficult problem."},
+  {id:11, cat:"관심분야", q:"Q11. What is one small habit you practice in your daily life to protect the environment? (환경보호를 위한 나의 노력)", a:"I try not to waste food. I also try to reduce(뤼듀스) meat goods when possible.\nI think small actions(액션) can help the environment.\nI want to make good habits(하빗) for the future."},
+  {id:12, cat:"팀워크·기여", q:"Q12. In a team project, what would you do if a teammate has a different opinion from yours? (팀과 생각이 달랐을때)", a:"First, I would listen carefully. I respect different ideas.\nThen I would look for a common idea. I think good teamwork comes from communication(커뮤니케이션)."},
+  {id:13, cat:"한국·제주", q:"Q13. If a student from another country has a prejudice about Korea, how will you respond? (한국문화에 대한 편견이 있을때)", a:"I would explain kindly.\nI would tell them about Korean culture and daily life.\nI think talking and sharing information(인폴메이션) can remove mis/understandings."},
+  {id:14, cat:"지원동기", q:"Q14. If you are accepted as a Korean representative, what is the first thing you want to prepare? (대표선발되면 무엇을 준비할건가)", a:"First, I would study English.\nI want to communicate better with other students.\nSecond, I would learn more about climate change.\nI want to be ready for the program."},
   {id:15, cat:"팀워크·기여", q:"Q15. What do you think is the most important quality of a global science leader? (글로벌 사이언스 리더의 덕목)", a:"I think a good science leader listens to other people.\nA leader should respect different ideas.\nA leader should also help the team work together.\nTeamwork is very important."},
   {id:16, cat:"프로젝트", q:"Q16. Why did you choose the Jeju language?", a:"Because fewer people use the Jeju language today.\nI wanted to help protect our local culture and language.\nThat is why I started this project."},
-  {id:17, cat:"관심분야", q:"Q17. Why are you interested in space?", a:"Because there are still many things we do not know about space.\nI like learning about new discoveries.\nI think space is very interesting and mysterious."},
-  {id:18, cat:"관심분야", q:"Q18. Why do you like dinosaurs?", a:"When I was young, I enjoyed reading books about dinosaurs.\nI was curious about why they disappeared.\nLearning about dinosaurs helped me become interested in science, climate, and space."},
-  {id:19, cat:"지원동기", q:"Q19. What do you want to learn at APT JSO? (이번 프로그램에서 배우고 싶은 것)", a:"I want to learn more about climate change.\nI also want to learn how students from other countries think about science.\nMost of all, I want to learn through experiments and teamwork."},
-  {id:20, cat:"지원동기", q:"Q20. Why should we choose you? (왜 너를 선택해야 하는지)", a:"I am very interested in science and climate change.\nI like learning new things and working with other people.\nI always try my best and do not give up easily.\nIf I am selected, I will actively participate and represent Korea well."},
-  {id:21, cat:"독서·취미", q:"Q21. What is your favorite book? (제일 좋아하는 책)", a:"My favorite book is Project Hail Mary.\nIt is a science fiction novel about saving humanity.\nI enjoyed the science and teamwork in the story."},
-  {id:22, cat:"독서·취미", q:"Q22. Why do you recommend Project Hail Mary? (책 추천 이유)", a:"Because it is fun and exciting.\nIt also shows how science can help solve difficult problems.\nI think many students will enjoy it."},
-  {id:23, cat:"독서·취미", q:"Q23. What did you learn from Project Hail Mary? (무엇을 배웠나)", a:"I learned that science is important for solving problems.\nI also learned that teamwork is very important.\nPeople can achieve great things when they work together."},
-  {id:24, cat:"독서·취미", q:"Q24. Who is your favorite character?", a:"My favorite character is Ryland Grace.\nHe does not give up when facing difficult situations.\nI like his attitude and problem-solving skills."},
-  {id:25, cat:"한국·제주", q:"Q25. Can you introduce Jeju Island? (제주 소개)", a:"Jeju is a beautiful island in Korea.\nIt has volcanoes, beaches, and unique culture.\nThe weather changes quickly, so it helped me become interested in climate science."},
-  {id:26, cat:"한국·제주", q:"Q26. What makes Jeju special? (제주는 무엇이 특별)", a:"Jeju has beautiful nature and a unique culture.\nIt also has its own language, the Jeju language.\nI think that makes Jeju very special."},
-  {id:27, cat:"한국·제주", q:"Q27. What is the biggest environmental problem in Jeju? (제주의 환경문제)", a:"I think climate change is one of the biggest problems.\nTyphoons and unusual weather are becoming more common.\nThat is why I am interested in this topic."},
-  {id:28, cat:"인성·태도", q:"Q28. What is your biggest strength? (강점)", a:"I am responsible and I do not give up easily.\nI also enjoy working with other people.\nI always try my best."},
-  {id:29, cat:"인성·태도", q:"Q29. What is your biggest weakness?", a:"My weakness is that I sometimes cannot say no to people.\nI like helping my friends, so I often say yes.\nSometimes I become very busy.\nNow I am trying to manage my time better.\nI think I am getting better little by little."},
+  {id:17, cat:"관심분야", q:"Q17. Why are you interested in space?", a:"Because there are still many things we do not know about space.\nI like learning about new discoveries.(디스커버리)\nI think space is very interesting and mysterious(미스테리어스)."},
+  {id:18, cat:"관심분야", q:"Q18. Why do you like dinosaurs?", a:"When I was young, I enjoyed reading books about dinosaurs.\nI was curious about why they disappeared(디썰피어드).\nLearning about dinosaurs helped me become interested in science, climate, and space."},
+  {id:19, cat:"지원동기", q:"Q19. What do you want to learn at APT JSO? (이번 프로그램에서 배우고 싶은거)", a:"I want to learn more about climate change.\nI also want to learn how students from other countries think about science.\nMost of all, I want to learn through experiments and teamwork."},
+  {id:20, cat:"지원동기", q:"Q20. Why should we choose you? (왜 너를 선택해야 하는지)", a:"I am very interested in science and climate change.\nI like learning new things and working with other people.\nI always try my best and do not give up easily.\nIf I am selected,(셀렉티드) I will actively(엑티블리) participate(팔티스페이트) and represent(뢰펄센트) Korea well."},
+  {id:21, cat:"독서·취미", q:"Q21. What is your favorite book? (제일 좋아하는 책)", a:"My favorite book is Project Hail Mary.\nIt is a science fiction(픽션) novel(노벌) about saving humanity.(휴머니티)\nI enjoyed the science and teamwork in the story."},
+  {id:22, cat:"독서·취미", q:"Q22. Why do you recommend Project Hail Mary? (책 추천이유)", a:"Because it is fun and exciting.\nIt also shows how science can help solve difficult problems.\nI think many students will enjoy it."},
+  {id:23, cat:"독서·취미", q:"Q23. What did you learn from Project Hail Mary? (무엇을 배웠나)", a:"I learned that science is important for solving problems.\nI also learned that teamwork is very important.\nPeople can achieve(에취브) great things when they work together."},
+  {id:24, cat:"독서·취미", q:"Q24. Who is your favorite character?", a:"My favorite character(캐릭터) is Ryland Grace.(라일랜드 그레이스)\nHe does not give up when facing difficult situations.(페이싱 디피컬트 시츄에이션)\nI like his attitude(에드츄드) and problem-solving skills."},
+  {id:25, cat:"한국·제주", q:"Q25. Can you introduce Jeju Island? (제주소개)", a:"Jeju is a beautiful island in Korea.\nIt has volcanoes(볼케이노), beaches(비취), and unique culture(유니크 컬쳐).\nThe weather changes quickly, so it helped me become interested in climate science."},
+  {id:26, cat:"한국·제주", q:"Q26. What makes Jeju special? (제주는 무엇이 특별)", a:"Jeju has beautiful nature(네이쳘) and a unique(유니크) culture.\nIt also has its own language, the Jeju language.\nI think that makes Jeju very special."},
+  {id:27, cat:"한국·제주", q:"Q27. What is the biggest environmental problem in Jeju? (제주의 환경문제)", a:"I think climate change is one of the biggest problems.\nTyphoons and unusual(언유수얼) weather are becoming more common.\nThat is why I am interested in this topic."},
+  {id:28, cat:"인성·태도", q:"Q28. What is your biggest strength? (강점)", a:"I am responsible(뤼스폰시블) and I do not give up easily.\nI also enjoy working with other people.\nI always try my best."},
+  {id:29, cat:"인성·태도", q:"Q29. What is your biggest weakness?", a:"My weakness is that I sometimes cannot(케넛) say no to people.\nI like helping my friends, so I often say yes.\nSometimes I become very busy(비지).\nNow I am trying to manage(메니지) my time better.\nI think I am getting better little by little."},
   {id:30, cat:"인성·태도", q:"Q30. What was the most difficult moment in your life?", a:"One of the hardest things in my life was having allergies.\nThere were foods I could not eat.\nBut I did not give up.\nI controlled my diet and tried to stay healthy.\nI learned that it is important to stay positive and keep trying."},
   {id:31, cat:"독서·취미", q:"Q31. What do you do in your free time?", a:"I like reading books about science.\nI also enjoy learning about space and climate.\nSometimes I work on coding projects."},
-  {id:32, cat:"인성·태도", q:"Q32. What would you do if your English is not good enough? (영어 부족을 어떻게 극복)", a:"I will not be afraid.\nI will try my best to communicate.\nI think learning by doing is important.\nI will learn from my friends and teachers."},
+  {id:32, cat:"인성·태도", q:"Q32. What would you do if your English is not good enough? (영어부족을 어떻게 극복)", a:"I will not be afraid.(어프레이드)\nI will try my best to communicate.(커뮤니케이션)\nI think learning by doing is important.\nI will learn from my friends and teachers."},
 ];
 
 let selectedId = null;
@@ -283,14 +386,18 @@ function selectCard(id) {
   document.getElementById('send-btn').disabled = false;
 }
 
+function clearComment() {
+  document.getElementById('comment-input').value = '';
+}
+
 async function sendCard() {
   const card = qaData.find(x => x.id === selectedId);
   if (!card) return;
   const btn = document.getElementById('send-btn');
   btn.disabled = true;
   btn.textContent = '전송 중...';
-  const payload = { ...card, ts: Date.now(), clear: false };
-  const ok = await fbSet(payload);
+  const comment = document.getElementById('comment-input').value.trim();
+  const ok = await fbSet({ ...card, comment, ts: Date.now(), clear: false });
   document.getElementById('send-status').textContent = ok
     ? '✓ ' + new Date().toLocaleTimeString('ko') + ' 전송 완료'
     : '⚠ 전송 실패';
@@ -309,6 +416,7 @@ async function clearCard() {
       <div class="empty-icon">📋</div>
       <div style="font-size:14px">왼쪽에서 Q&A 카드를 선택하세요</div>
     </div>`;
+  clearComment();
   renderList();
 }
 
@@ -348,6 +456,15 @@ function showPresenterCard(d) {
   document.getElementById('p-cat').textContent = d.cat;
   document.getElementById('p-q').textContent = d.q;
   document.getElementById('p-a').textContent = d.a;
+  // 코멘트 처리
+  const commentWrap = document.getElementById('p-comment-wrap');
+  const commentText = document.getElementById('p-comment-text');
+  if (d.comment && d.comment.trim()) {
+    commentText.textContent = d.comment;
+    commentWrap.classList.add('visible');
+  } else {
+    commentWrap.classList.remove('visible');
+  }
   const badge = document.getElementById('p-badge');
   badge.style.display = 'block';
   setTimeout(() => badge.style.display = 'none', 2800);
@@ -355,13 +472,13 @@ function showPresenterCard(d) {
 function showPresenterEmpty() {
   document.getElementById('p-empty').style.display = 'flex';
   document.getElementById('p-card').style.display = 'none';
+  document.getElementById('p-comment-wrap').classList.remove('visible');
 }
 
 function setMode(m) {
   document.querySelectorAll('.mode-tab').forEach((b, i) => { b.classList.toggle('active', ['operator','presenter'][i] === m); });
   document.getElementById('panel-operator').classList.toggle('active', m === 'operator');
-  const pp = document.getElementById('panel-presenter');
-  pp.classList.toggle('active', m === 'presenter');
+  document.getElementById('panel-presenter').classList.toggle('active', m === 'presenter');
   if (m === 'presenter') startPolling();
 }
 
